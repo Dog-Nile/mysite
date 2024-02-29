@@ -1,30 +1,24 @@
-<!DOCTYPE html>
+
+{% extends 'base.html' %}
+
 {% load month_to_eng %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-</head>
-<body>
-<h1>Post Archives for {{ year|date:"Y" }}</h1>
-<ul>
+
+{% block content %}
+    <h1>Post Archives for {{ year|date:"Y" }}</h1>
     {% for date in date_list %}
     {{ date|date:'b' }}
-    <li style="display: inline;">
-        <a href="{% url 'blog:post_month_archive' year|date:'Y' date|date:'b'|month_to_eng %}">
+        <a href="{% url 'blog:post_month_archive' year|date:'Y' date|date:'b'|month_to_eng %}" class="btn btn-outline-primary btn-sm mx-1">
             {{ date|date:"F" }}
         </a>
-    </li>
     {% endfor %}
-</ul>
-<br>
+<br><br>
 <div>
     <ul>
         {% for post in object_list %}
-            <li>{{ post.modified_at|date:"Y-m-d" }}&nbsp;&nbsp;&nbsp;
+            <li class="h5">{{ post.modified_at|date:"Y-m-d" }}&nbsp;&nbsp;&nbsp;
                 <a href="{{ post.get_absolute_url }}"><strong>{{ post.title }}</strong></a>
             </li>
         {% endfor %}
     </ul>
 </div>
-</body>
-</html>
+{% endblock %}

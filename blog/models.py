@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from taggit.managers import TaggableManager
 
 
 class Post(models.Model):
@@ -8,8 +9,9 @@ class Post(models.Model):
     description = models.CharField('DESCRIPTION', max_length=100, blank=True, help_text='Simple description text.')
     content = models.TextField('CONTENT')
     created_at = models.DateTimeField('CREATED AT', auto_now_add=True)
-    modified_at = models.DateTimeField('MODIFIED AT', auto_now=True)
 
+    modified_at = models.DateTimeField('MODIFIED AT', auto_now=True)
+    tags = TaggableManager(blank=True)
     class Meta:
         verbose_name = 'post'
         verbose_name_plural = 'posts'
